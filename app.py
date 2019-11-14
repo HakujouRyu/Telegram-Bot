@@ -1,6 +1,11 @@
 from telegram.ext import Updater, InlineQueryHandler, CommandHandler
 import requests
-import re
+from dotenv import load_dotenv
+from decouple import config
+from pathlib import Path
+
+dotenv_path = Path('.env')
+load_dotenv(dotenv_path=dotenv_path)
 
 
 def get_doge():
@@ -27,7 +32,7 @@ def boop(bot, update):
 
 
 def main():
-    updater = Updater('885378530:AAGBnwceEQzy0o9yeZAXLxQkf80Q4zb5RRY')
+    updater = Updater(config('API_TOKEN'))
     dp = updater.dispatcher
     dp.add_handler(CommandHandler('boop',boop))
     dp.add_handler(CommandHandler('joke', joke))
